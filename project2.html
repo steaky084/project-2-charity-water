@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,25 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Arial', sans-serif; background: #f8f8f8; color: #1a1a1a; }
+    .waves-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 320px;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .waves-bg svg {
+      width: 100vw;
+      height: 320px;
+      display: block;
+    }
+    body > *:not(.waves-bg) {
+      position: relative;
+      z-index: 1;
+    }
     header.navbar {
       position: relative;
       background: #fff;
@@ -38,28 +56,49 @@
     }
     .logo img { height: 40px; }
     .hero { text-align: center; padding: 40px 20px; }
-    .hero h1 { font-size: 32px; margin-bottom: 40px; }
-    .hero-content { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; position: relative; }
-    .image-container { position: relative; width: 500px; max-width: 90%; border-radius: 40px; background: #ffde17; padding: 10px; }
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .hero-content { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; position: relative; }
+    .image-container { position: relative; width: 300px; max-width: 80%; border-radius: 40px; background: #ffde17; padding: 10px; }
     .image-container img { display: block; width: 100%; height: auto; border-radius: 30px; }
-    .image-container .drop { position: absolute; background: #9cdfff; border-radius: 50%; }
-    .drop.small { width: 24px; height: 36px; transform: rotate(45deg); }
-    .drop.medium { width: 32px; height: 48px; transform: rotate(45deg); }
-    .drop.small1 { bottom: -10px; left: 20px; }
-    .drop.small2 { bottom: 10px; left: 70px; }
-    .drop.medium { bottom: 0; left: 100px; }
+    .image-container .drop {
+      position: absolute;
+      background: linear-gradient(180deg, #9cdfff 0%, #009ee3 100%);
+      box-shadow: 0 2px 8px rgba(0,158,227,0.15);
+      opacity: 0.85;
+      /* Realistic raindrop shape using SVG path */
+      clip-path: path('M 0.5 0 C 0.8 0.3 1 0.7 0.5 1 C 0 0.7 0.2 0.3 0.5 0 Z');
+    }
+    .drop.small {
+      width: 14px;
+      height: 22px;
+    }
+    .drop.small1 { bottom: -12px; left: 10px; }
+    .drop.small2 { bottom: 12px; left: 50px; }
+    .drop.medium { width: 22px; height: 36px; }
+    .drop.medium1 { bottom: 0; left: 80px; }
     .text-block { max-width: 400px; text-align: left; font-size: 18px; line-height: 1.4; position: relative; }
     .text-block:before, .text-block:after { content: ''; position: absolute; border: 3px solid #1a1a1a; width: 30px; height: 30px; }
     .text-block:before { top: -10px; left: -10px; border-right: none; border-bottom: none; }
     .text-block:after { bottom: -10px; right: -10px; border-left: none; border-top: none; }
     .search-bar { margin-top: 60px; display: flex; justify-content: center; }
     .search-bar input { width: 400px; max-width: 90%; padding: 12px 16px; font-size: 16px; border: 2px solid #1a1a1a; border-radius: 30px; outline: none; }
-    .search-bar .icon { position: absolute; margin-left: 16px; color: #888; font-size: 18px; }
     .search-bar .clear { position: absolute; margin-left: -32px; cursor: pointer; color: #888; font-size: 18px; }
     .search-wrapper { position: relative; }
   </style>
 </head>
 <body>
+  <div class="waves-bg">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#b3e0ff" fill-opacity="1" d="M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,154.7C840,149,960,171,1080,186.7C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+      <path fill="#66b3ff" fill-opacity="0.7" d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,176C1200,171,1320,181,1380,186.7L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+      <path fill="#3385cc" fill-opacity="0.5" d="M0,288L60,272C120,256,240,224,360,197.3C480,171,600,149,720,154.7C840,160,960,192,1080,202.7C1200,213,1320,203,1380,197.3L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+    </svg>
+  </div>
   <header class="navbar">
     <div class="nav-links">
       <button>About Us</button>
@@ -68,18 +107,17 @@
       <button onclick="location.href='thankyou.html'">Donate</button>
     </div>
     <div class="logo">
-      <img src="https://www.charitywater.org/assets/svg/jerry-can-yellow.svg" alt="Charity: Water logo">
+      <img src="charitywater_logo_horizontal_BlackText.png" alt="Charity: Water logo">
     </div>
   </header>
-
   <section class="hero">
     <h1>Bring Clean Water to the World – Right From Campus</h1>
     <div class="hero-content">
       <div class="image-container">
-        <img src="https://images.unsplash.com/photo-1593529467220-0f75da1c27b0?auto=format&fit=crop&w=800&q=80" alt="Students in classroom">
+        <img src="5810_Ethiopia_2019_CG-.jpg" alt="Students in classroom">
         <div class="drop small small1"></div>
         <div class="drop small small2"></div>
-        <div class="drop medium"></div>
+        <div class="drop medium medium1"></div>
       </div>
       <div class="text-block">
         Join thousands of students bringing clean water to communities worldwide—100% of what you give funds real projects, with updates to show your impact.
@@ -87,57 +125,9 @@
     </div>
     <div class="search-bar">
       <div class="search-wrapper">
-        <span class="icon">🔍</span>
         <input type="text" placeholder="Have questions?">
-        <span class="clear">✕</span>
-      </div>
-    </div>
+      </div>    </div>
   </section>
-</body>
-</html>
-
-
-<!-- thankyou.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f8f8f8; font-family: 'Arial', sans-serif; }
-    h1 { font-size: 36px; color: #1a1a1a; z-index: 2; }
-    .confetti { position: absolute; width: 8px; height: 8px; background: #9cdfff; border-radius: 50%; opacity: 0; }
-    @keyframes shoot {
-      0% { transform: translateX(0) translateY(0); opacity: 1; }
-      100% { transform: translateX(var(--dx)) translateY(var(--dy)); opacity: 0; }
-    }
-  </style>
-</head>
-<body>
-  <h1>Thank you for donating!</h1>
-  <script>
-    function createConfetti() {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-      const startY = Math.random() * window.innerHeight;
-      const side = Math.random() < 0.5 ? 'left' : 'right';
-      const startX = side === 'left' ? 0 : window.innerWidth;
-      confetti.style.top = startY + 'px';
-      confetti.style[side] = '0px';
-      const dx = (side === 'left' ? 1 : -1) * (50 + Math.random() * 150) + 'px';
-      const dy = (50 + Math.random() * 150) + 'px';
-      confetti.style.setProperty('--dx', dx);
-      confetti.style.setProperty('--dy', dy);
-      confetti.style.animation = 'shoot 2s ease-out forwards';
-      document.body.appendChild(confetti);
-      setTimeout(() => document.body.removeChild(confetti), 2000);
-    }
-    // Generate bursts from sides
-    setInterval(() => {
-      for (let i = 0; i < 10; i++) createConfetti();
-    }, 500);
-  </script>
+  </section>
 </body>
 </html>
