@@ -32,21 +32,25 @@
       padding: 20px;
     }
     .nav-links {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       display: flex;
-      gap: 20px;
+      gap: 24px;           /* Adjust spacing between buttons */
+      justify-content: flex-start; /* Align to the left */
+      align-items: center;
+      padding-left: 32px;  /* Add left padding if desired */
+      position: relative;
+      height: 60px;        /* Adjust as needed for vertical alignment */
     }
     .nav-links button {
       background: #1a1a1a;
       color: #fff;
       border: none;
-      padding: 10px 20px;
-      border-radius: 30px;
+      padding: 18px 36px; /* Bigger buttons */
+      border-radius: 40px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 20px; /* Larger text */
+      font-weight: 600;
+      box-shadow: 4px 4px 16px 0 rgba(0,0,0,0.18); /* Add shadow to bottom-right */
+      transition: background 0.2s;
     }
     .logo {
       position: absolute;
@@ -54,7 +58,13 @@
       right: 20px;
       transform: translateY(-50%);
     }
-    .logo img { height: 40px; }
+    .logo img {
+      height: 600px;      /* 15 times bigger than 40px */
+      width: auto;
+      max-width: 90vw;
+      max-height: 80vh;
+      display: block;
+    }
     .hero { text-align: center; padding: 40px 20px; }
     .hero h1 {
       font-size: 32px;
@@ -62,9 +72,34 @@
       font-weight: 700;
       white-space: nowrap;
     }
-    .hero-content { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; position: relative; }
-    .image-container { position: relative; width: 300px; max-width: 80%; border-radius: 40px; background: #ffde17; padding: 10px; }
-    .image-container img { display: block; width: 100%; height: auto; border-radius: 30px; }
+    /* Make hero-content fill more of the screen and look balanced */
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+    .image-container {
+      flex: 1 1 340px;
+      min-width: 280px;
+      max-width: 480px;
+      border-radius: 40px;
+      background: #ffde17;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 30px;
+      display: block;
+    }
     .image-container .drop {
       position: absolute;
       background: linear-gradient(180deg, #9cdfff 0%, #009ee3 100%);
@@ -81,7 +116,19 @@
     .drop.small2 { bottom: 12px; left: 50px; }
     .drop.medium { width: 22px; height: 36px; }
     .drop.medium1 { bottom: 0; left: 80px; }
-    .text-block { max-width: 400px; text-align: left; font-size: 18px; line-height: 1.4; position: relative; }
+    .text-block {
+      flex: 1 1 340px;
+      min-width: 280px;
+      max-width: 480px;
+      font-size: 22px;
+      line-height: 1.6;
+      padding: 32px 24px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+      position: relative;
+      margin: auto 0;
+    }
     .text-block:before, .text-block:after { content: ''; position: absolute; border: 3px solid #1a1a1a; width: 30px; height: 30px; }
     .text-block:before { top: -10px; left: -10px; border-right: none; border-bottom: none; }
     .text-block:after { bottom: -10px; right: -10px; border-left: none; border-top: none; }
@@ -89,6 +136,41 @@
     .search-bar input { width: 400px; max-width: 90%; padding: 12px 16px; font-size: 16px; border: 2px solid #1a1a1a; border-radius: 30px; outline: none; }
     .search-bar .clear { position: absolute; margin-left: -32px; cursor: pointer; color: #888; font-size: 18px; }
     .search-wrapper { position: relative; }
+    /* Make nav buttons bigger and left-aligned (not centered) */
+    .nav-links {
+      display: flex;
+      gap: 36px; /* More space between buttons */
+      justify-content: flex-start; /* Align group to the left */
+      align-items: center;
+      padding-left: 32px; /* Add left padding for spacing from edge */
+      position: relative;
+      height: 70px;
+    }
+    
+    .nav-links button {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      padding: 18px 36px; /* Bigger buttons */
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 20px; /* Larger text */
+      font-weight: 600;
+      box-shadow: 4px 4px 16px 0 rgba(0,0,0,0.18); /* Add shadow to bottom-right */
+      transition: background 0.2s;
+    }
+    
+    .nav-links button:hover {
+      background: #333;
+    }    .nav-underline {
+      border: none;
+      border-top: 2.5px solid #1a1a1a;
+      margin: 5px 0 0 32px; /* Top margin is now 5px */
+      width: calc(100% - 32px);
+      position: relative;
+      top: 0;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
@@ -106,6 +188,7 @@
       <button>Join to Change</button>
       <button onclick="location.href='thankyou.html'">Donate</button>
     </div>
+    <hr class="nav-underline">
     <div class="logo">
       <img src="charitywater_logo_horizontal_BlackText.png" alt="Charity: Water logo">
     </div>
@@ -126,8 +209,8 @@
     <div class="search-bar">
       <div class="search-wrapper">
         <input type="text" placeholder="Have questions?">
-      </div>    </div>
-  </section>
+      </div>
+    </div>
   </section>
 </body>
 </html>
