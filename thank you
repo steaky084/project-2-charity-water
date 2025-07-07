@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You!</title>
+  <style>
+    body {
+      background: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      color: #1a1a1a;
+      font-size: 2.5rem;
+      margin-top: 60px;
+      z-index: 1;
+    }
+    .confetti {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti"></canvas>
+  <h1>Thank You for your donation!</h1>
+  <script>
+    // Simple blue circular confetti burst
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W; canvas.height = H;
+
+    function randomBlue() {
+      const blues = ['#3385cc','#66b3ff','#b3e0ff','#009ee3','#9cdfff'];
+      return blues[Math.floor(Math.random()*blues.length)];
+    }
+
+    function Confetto() {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 6 + Math.random() * 4;
+      this.x = W/2;
+      this.y = H/2;
+      this.r = 10 + Math.random() * 10;
+      this.color = randomBlue();
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.alpha = 1;
+    }
+    Confetto.prototype.update = function() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += 0.15; // gravity
+      this.alpha -= 0.012;
+    }
+    Confetto.prototype.draw = function(ctx) {
+      ctx.globalAlpha = Math.max(this.alpha, 0);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    let confetti = [];
+    function burst() {
+      for(let i=0;i<40;i++) confetti.push(new Confetto());
+    }
+    burst();
+
+    function animate() {
+      ctx.clearRect(0,0,W,H);
+      confetti.forEach(c => {
+        c.update();
+        c.draw(ctx);
+      });
+      confetti = confetti.filter(c => c.alpha > 0 && c.y < H+40);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = W; canvas.height = H;
+    });
+  </script>
+</body>
+</html>
